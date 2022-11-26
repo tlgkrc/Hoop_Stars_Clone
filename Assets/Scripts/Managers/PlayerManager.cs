@@ -128,5 +128,15 @@ namespace Managers
             _inputTypes = inputType;
             physicsController.SetInteractionType(inputType);
         }
+
+        public void ExitInteractionWithTarget(bool isInside)
+        {
+            physicsController.SetExitSituation(isInside);
+        }
+
+        public void EntryInteractionWithTarget(bool isInside)
+        {
+            physicsController.SetEntrySituation(isInside);
+        }
     }
 }

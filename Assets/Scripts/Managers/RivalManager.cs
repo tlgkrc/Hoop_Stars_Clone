@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Controllers;
+using Controllers.Rival;
 using Data.UnityObject;
 using Data.ValueObject;
 using Signals;
@@ -82,9 +83,20 @@ namespace Managers
 
         IEnumerator Press()
         {
-            float waiting = Random.Range(1, 3);
+            float waiting = Random.Range(.5f, 2f);
             yield return new WaitForSeconds(waiting);
             movementController.SetSuitableSituation();
+            StartCoroutine(Press());
+        }
+
+        public void EntryInteractionWithTarget(bool isInside)
+        {
+            
+        }
+
+        public void ExitInteractionWithTarget(bool isInside)
+        {
+            
         }
     }
 }

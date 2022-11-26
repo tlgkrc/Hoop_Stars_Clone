@@ -25,22 +25,17 @@ namespace Controllers.Player
         #endregion
 
         #endregion
-        
-        private void OnTriggerExit(Collider other)
-        {
-            // if (other.CompareTag("Hook") && _isEnterPlayer && _isExitPlayer)
-            // {
-            //     ScoreSignals.Instance.onGetHookPos.Invoke(other.transform.position);
-            //     ScoreSignals.Instance.onUpdateScore?.Invoke();
-            //     _isEnterPlayer = false;
-            // }
-        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Wall") && _interactionType ==InputTypes.OneSide)
             { 
                 PlayerSignals.Instance.onChangeMoveDirection?.Invoke();
+            }
+
+            if (other.CompareTag("Target") && (_isEnterPlayer || _isExitPlayer))
+            {
+                ScoreSignals.Instance.onUpdatePlayerScore?.Invoke();
             }
         }
 

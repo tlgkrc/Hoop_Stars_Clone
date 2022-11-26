@@ -1,8 +1,7 @@
-﻿using System;
-using Data.ValueObject;
+﻿using Data.ValueObject;
 using UnityEngine;
 
-namespace Controllers
+namespace Controllers.Rival
 {
     public class RivalMovementController : MonoBehaviour
     {
@@ -18,7 +17,7 @@ namespace Controllers
 
         private bool _isMoveRightSide;
         private bool _isPressed;
-        private ushort _maxVelocityMagnitude;
+        private const float _maxVelocityMagnitude = 16f;
         private PlayerData _data;
 
         #endregion

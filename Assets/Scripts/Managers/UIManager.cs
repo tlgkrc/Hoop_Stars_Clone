@@ -18,7 +18,6 @@ namespace Managers
         #region Serialized Variables
         
         [SerializeField] private List<GameObject> panels;
-        //[SerializeField] private UITimeController timeController;
         [SerializeField] private GameObject settingsGameObject;
         [SerializeField] private GameObject oneSidePanel;
         [SerializeField] private GameObject twoSidePanel;
@@ -50,6 +49,7 @@ namespace Managers
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
             CoreGameSignals.Instance.onGameFailed += OnGameFailed;
+            CoreGameSignals.Instance.onNextLevel += OnNextLevel;
             UISignals.Instance.onOpenPanel += OnOpenPanel;
             UISignals.Instance.onClosePanel += OnClosePanel;
             UISignals.Instance.onSetScoreText += OnSetScoreText;
@@ -60,6 +60,7 @@ namespace Managers
         {
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
+            CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
             CoreGameSignals.Instance.onGameFailed -= OnGameFailed;
             UISignals.Instance.onOpenPanel -= OnOpenPanel;
             UISignals.Instance.onClosePanel -= OnClosePanel;
@@ -100,6 +101,12 @@ namespace Managers
         {
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.FailPanel);
+        }
+
+        private void OnNextLevel()
+        {
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.NextLevel);
         }
 
         public void Play()
