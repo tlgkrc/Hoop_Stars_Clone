@@ -42,8 +42,9 @@ namespace Managers
             ScoreSignals.Instance.onGetHookPos += OnGetHookPosition;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
-            CoreGameSignals.Instance.onHasImpact += OnHasImpact;
             CoreGameSignals.Instance.onGameFailed += OnGameFailed;
+            PlayerSignals.Instance.onHasImpact += OnHasImpact;
+
         }
 
         private void UnsubscribeEvents()
@@ -52,8 +53,8 @@ namespace Managers
             ScoreSignals.Instance.onGetHookPos -= OnGetHookPosition;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
-            CoreGameSignals.Instance.onHasImpact -= OnHasImpact;
             CoreGameSignals.Instance.onGameFailed -= OnGameFailed;
+            PlayerSignals.Instance.onHasImpact -= OnHasImpact;
         }
 
         private void OnDisable()

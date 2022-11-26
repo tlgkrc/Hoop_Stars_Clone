@@ -1,5 +1,6 @@
 using Enums;
 using Extentions;
+using Keys;
 using UnityEngine.Events;
 
 namespace Signals
@@ -9,7 +10,7 @@ namespace Signals
         public UnityAction onEnableInput = delegate {  };
         public UnityAction onDisableInput = delegate {  };
         public UnityAction onFirstTimeTouchTaken = delegate { };
-        public UnityAction onInputTaken = delegate { };
+        public UnityAction<float> onInputTaken = delegate { };
         public UnityAction onInputReleased = delegate { };
         public UnityAction<InputTypes> onActiveInputType = delegate {  };
     }

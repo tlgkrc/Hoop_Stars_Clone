@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5234086154538701562
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,17 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Supporters
-  m_Shader: {fileID: 4800000, guid: 733fefdcde0d35f4b822d2935d5a22f4, type: 3}
+  m_Name: TargetMat
+  m_Shader: {fileID: 4800000, guid: 6c046203321edf34fb092959a05e5b4a, type: 3}
   m_ValidKeywords:
   - _MK_ARTISTIC_PROJECTION_SCREEN_SPACE
   - _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
-  - _MK_RECEIVE_SHADOWS
+  - _MK_OUTLINE_HULL_CLIP
+  - _MK_OUTLINE_NOISE
   - _MK_SPECULAR_ISOTROPIC
-  - _MK_VERTEX_ANIMATION_SINE
   - _MK_WRAPPED_DIFFUSE
   m_InvalidKeywords:
-  - _RECEIVESHADOWS_ON
   - _WRAPPEDLIGHTING_ON
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
@@ -119,7 +105,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _OutlineMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RefractionDistortionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -165,7 +159,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AdvancedTab: 0
+    - _AdvancedTab: 1
     - _AlphaClip: 0
     - _AlphaClipping: 0
     - _AlphaCutoff: 0.5
@@ -201,6 +195,7 @@ Material:
     - _GlossyReflections: 0
     - _GoochRampIntensity: 0.5
     - _HatchingMapScale: 1
+    - _IndexOfRefraction: 0
     - _Initialized: 1
     - _InputTab: 1
     - _Iridescence: 0
@@ -215,9 +210,20 @@ Material:
     - _NormalMapIntensity: 1
     - _OcclusionStrength: 1
     - _OptionsTab: 1
+    - _Outline: 3
+    - _OutlineData: 0
+    - _OutlineFadeMax: 2
+    - _OutlineFadeMin: 0.25
+    - _OutlineNoise: 1
+    - _OutlineSize: 100
+    - _OutlineTab: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
+    - _RefractionDistortion: 0.1
+    - _RefractionDistortionFade: 0.5
+    - _RefractionDistortionMapScale: 1
+    - _RefractionTab: 0
     - _RenderFace: 2
     - _RenderPriority: 0
     - _Rim: 0
@@ -245,15 +251,15 @@ Material:
     - _StylizeTab: 1
     - _Surface: 0
     - _ThresholdMapScale: 1
-    - _VertexAnimation: 1
-    - _VertexAnimationIntensity: 0.071
+    - _VertexAnimation: 0
+    - _VertexAnimationIntensity: 0.05
     - _VertexAnimationStutter: 0
     - _WorkflowMode: 1
     - _WrappedLighting: 1
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.20784312, g: 0.59759593, b: 0.94509804, a: 1}
+    - _AlbedoColor: {r: 0, g: 0.0058350563, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
@@ -261,6 +267,7 @@ Material:
     - _GoochBrightColor: {r: 1, g: 1, b: 1, a: 1}
     - _GoochDarkColor: {r: 0, g: 0, b: 0, a: 1}
     - _IridescenceColor: {r: 1, g: 1, b: 1, a: 0.5}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimBrightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimDarkColor: {r: 0, g: 0, b: 0, a: 1}
@@ -268,3 +275,16 @@ Material:
     - _SpecularColor: {r: 0.19999993, g: 0.19999993, b: 0.19999993, a: 1}
     - _VertexAnimationFrequency: {r: 2.5, g: 2.5, b: 2.5, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &9201811246316200152
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

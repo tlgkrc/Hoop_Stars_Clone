@@ -2,6 +2,7 @@ using UnityEngine;
 using Controllers.Player;
 using Data.UnityObject;
 using Data.ValueObject;
+using Enums;
 using Signals;
 
 namespace Managers
@@ -24,7 +25,14 @@ namespace Managers
         [SerializeField] private PlayerParticleController particleController;
 
         #endregion
-        
+
+        #region Private Variables
+
+        private InputTypes _inputTypes;
+        private float _prePos;
+
+        #endregion
+
         #endregion
 
         private void Awake()
@@ -44,26 +52,22 @@ namespace Managers
         {
             InputSignals.Instance.onInputTaken += OnActivateMovement;
             InputSignals.Instance.onInputReleased += OnDeactivateMovement;
+            InputSignals.Instance.onActiveInputType += OnActivateMovementType;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
-            CoreGameSignals.Instance.onInteractionWithBorder += OnInteractionWithBorder;
-            CoreGameSignals.Instance.onInteractionWithHookEntry += OnInteractionWithEntry;
-            CoreGameSignals.Instance.onInteractionWithHookExit += OnInteractionWithHookExit;
             ScoreSignals.Instance.onGetPecfectCount += OnGetPerfectCount;
-            ScoreSignals.Instance.onUpdateScore += OnChangeMoveDirection;
+            PlayerSignals.Instance.onChangeMoveDirection += OnChangeMoveDirection;
         }
 
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onInputTaken -= OnActivateMovement;
             InputSignals.Instance.onInputReleased -= OnDeactivateMovement;
+            InputSignals.Instance.onActiveInputType -= OnActivateMovementType;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
-            CoreGameSignals.Instance.onInteractionWithBorder -= OnInteractionWithBorder;
-            CoreGameSignals.Instance.onInteractionWithHookEntry -= OnInteractionWithEntry;
-            CoreGameSignals.Instance.onInteractionWithHookExit -= OnInteractionWithHookExit;
-            ScoreSignals.Instance.onUpdateScore -= OnChangeMoveDirection;
             ScoreSignals.Instance.onGetPecfectCount -= OnGetPerfectCount;
+            PlayerSignals.Instance.onChangeMoveDirection -= OnChangeMoveDirection;
         }
 
         private void OnDisable()
@@ -94,9 +98,14 @@ namespace Managers
             movementController.StopPlayer();
         }
 
-        private void OnActivateMovement()
+        private void OnActivateMovement(float inputPosX)
         {
+            if (_inputTypes == InputTypes.TwoSide && (inputPosX/_prePos)<0)
+            {
+                OnChangeMoveDirection();
+            }
             movementController.SetSuitableSituation(true);
+            _prePos = inputPosX;
         }
 
         private void OnDeactivateMovement()
@@ -109,24 +118,15 @@ namespace Managers
             movementController.SetMoveDirection();
         }
 
-        private void OnInteractionWithBorder(bool isLeft)
-        {
-            movementController.ReturnLoopPos(isLeft);
-        }
-
-        private void OnInteractionWithEntry(bool isInEntry)
-        {
-            physicsController.SetEntrySituation(isInEntry);
-        }
-        
-        private void OnInteractionWithHookExit(bool isInExit)
-        {
-            physicsController.SetExitSituation(isInExit);
-        }
-
         private void OnGetPerfectCount(ushort count)
         {
             particleController.SetPerfectCount(count);
+        }
+
+        private void OnActivateMovementType(InputTypes inputType)
+        {
+            _inputTypes = inputType;
+            physicsController.SetInteractionType(inputType);
         }
     }
 }

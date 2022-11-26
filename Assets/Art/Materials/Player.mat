@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5234086154538701562
+--- !u!114 &-6223547968416572864
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,14 +20,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Supporters
+  m_Name: Player
   m_Shader: {fileID: 4800000, guid: 733fefdcde0d35f4b822d2935d5a22f4, type: 3}
   m_ValidKeywords:
+  - _MK_ALBEDO_MAP
   - _MK_ARTISTIC_PROJECTION_SCREEN_SPACE
   - _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
   - _MK_RECEIVE_SHADOWS
   - _MK_SPECULAR_ISOTROPIC
-  - _MK_VERTEX_ANIMATION_SINE
   - _MK_WRAPPED_DIFFUSE
   m_InvalidKeywords:
   - _RECEIVESHADOWS_ON
@@ -44,7 +44,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlbedoMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: ab7b5a9a69bef6b468c5fbf08da94e4f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -104,7 +104,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: ab7b5a9a69bef6b468c5fbf08da94e4f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -245,15 +245,15 @@ Material:
     - _StylizeTab: 1
     - _Surface: 0
     - _ThresholdMapScale: 1
-    - _VertexAnimation: 1
-    - _VertexAnimationIntensity: 0.071
+    - _VertexAnimation: 0
+    - _VertexAnimationIntensity: 0.05
     - _VertexAnimationStutter: 0
     - _WorkflowMode: 1
     - _WrappedLighting: 1
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 0.20784312, g: 0.59759593, b: 0.94509804, a: 1}
+    - _AlbedoColor: {r: 0.2216981, g: 0.87911254, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}

@@ -26,7 +26,7 @@ namespace Controllers
         {
             if (other.CompareTag("Player"))
             {
-                CoreGameSignals.Instance.onInteractionWithBorder?.Invoke(_isLeftSide);
+                PlayerSignals.Instance.onInteractionWithBorder?.Invoke(_isLeftSide);
             }
         }
 

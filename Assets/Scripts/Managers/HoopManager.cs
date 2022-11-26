@@ -1,7 +1,4 @@
-﻿using System;
-using Controllers;
-using Controllers.Hoop;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Signals;
 using UnityEngine;
 
@@ -14,10 +11,7 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private GameObject hoopEntry;
-        [SerializeField] private HoopPhysicController physicController;
-        [SerializeField] private HoopImpactController impactController;
-        [SerializeField] private HoopEntryController entryController;
-        
+
         #endregion
 
         #region Private Variables
@@ -65,7 +59,6 @@ namespace Managers
 
         private void OnResetPerfectState()
         {
-            entryController.ResetEntryState();
         }
     }
 }

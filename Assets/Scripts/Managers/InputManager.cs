@@ -27,10 +27,10 @@ namespace Managers
         private bool _isReadyForTouch; 
         private bool _isFirstTimeTouchTaken;
         private float _currentVelocity; //ref type
+        private float _screenWidth;
         private Vector2? _mousePosition; //ref type
         private Vector3 _moveVector; //ref type
         private QueryPointerOverUIElementCommand _queryPointerOverUIElementCommand;
-        private InputTypes _activeInputType = InputTypes.OneSide;
 
         #endregion
 
@@ -47,6 +47,7 @@ namespace Managers
         private void Init()
         {
             _queryPointerOverUIElementCommand = new QueryPointerOverUIElementCommand();
+            _screenWidth = Screen.width;
         }
 
         #region Event Subscriptions
@@ -60,7 +61,6 @@ namespace Managers
         {
             InputSignals.Instance.onEnableInput += OnEnableInput;
             InputSignals.Instance.onDisableInput += OnDisableInput;
-            InputSignals.Instance.onActiveInputType += OnActiveInputType;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
         }
@@ -69,7 +69,6 @@ namespace Managers
         {
             InputSignals.Instance.onEnableInput -= OnEnableInput;
             InputSignals.Instance.onDisableInput -= OnDisableInput;
-            InputSignals.Instance.onActiveInputType -= OnActiveInputType;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
@@ -83,7 +82,6 @@ namespace Managers
 
         private void Update()
         {
-            Debug.Log(_queryPointerOverUIElementCommand.Execute());
             if (!_isReadyForTouch) return;
             
             if (Input.GetMouseButtonUp(0) && !_queryPointerOverUIElementCommand.Execute())
@@ -94,7 +92,6 @@ namespace Managers
            
             if (Input.GetMouseButtonDown(0) && !_queryPointerOverUIElementCommand.Execute())
             {
-                Debug.Log("tikkkkk");
                 MouseButtonDown();
             }
         }
@@ -131,19 +128,20 @@ namespace Managers
 
         private void MouseButtonDown()
         {
-            InputSignals.Instance.onInputTaken?.Invoke();
+            if (Input.mousePosition.x< _screenWidth/2)
+            {
+                InputSignals.Instance.onInputTaken?.Invoke((-1));
+            }
+            else
+            {
+                InputSignals.Instance.onInputTaken?.Invoke((1));
+            }
+            
             if (!_isFirstTimeTouchTaken)
             {
                 _isFirstTimeTouchTaken = true;
                 InputSignals.Instance.onFirstTimeTouchTaken?.Invoke();
             }
-            _mousePosition = Input.mousePosition;
         }
-
-        private void OnActiveInputType(InputTypes inputType)
-        {
-            _activeInputType = inputType;
-        }
-
     }
 }

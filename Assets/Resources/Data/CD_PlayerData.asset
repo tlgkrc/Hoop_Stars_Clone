@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CD_PlayerData
   m_EditorClassIdentifier: 
   Data:
-    AppliedForce: {x: 10, y: 40}
+    AppliedForce: {x: 200, y: 800}
     LoopDistance: 8

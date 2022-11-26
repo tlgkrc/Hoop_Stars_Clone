@@ -1,4 +1,6 @@
 ﻿using Data.ValueObject;
+using Enums;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Controllers.Player
@@ -9,7 +11,7 @@ namespace Controllers.Player
 
         #region Serialized Variables
 
-        [SerializeField] private new Rigidbody rb;
+        [SerializeField] private Rigidbody rb;
 
         #endregion
 
@@ -17,9 +19,9 @@ namespace Controllers.Player
 
         private bool _isMoveRightSide;
         private bool _isSuitableForNewForce;
-        private const float _maxVelocityMagnitude = 4.5f;
+        private const float _maxVelocityMagnitude = 36f;
         private PlayerData _playerData;
-
+        
         #endregion
 
         #endregion
@@ -39,17 +41,6 @@ namespace Controllers.Player
             _isSuitableForNewForce = isSuit;
         }
 
-        public void SetMoveDirection()
-        {
-            if (_isMoveRightSide)
-            {
-                _isMoveRightSide = false;
-            }
-            else
-            {
-                _isMoveRightSide = true;
-            }
-        }
 
         private void FixedUpdate()
         {
@@ -57,39 +48,6 @@ namespace Controllers.Player
             if (!_isSuitableForNewForce) return;
             ApplyForce();
             _isSuitableForNewForce = false;
-        }
-
-        private void ApplyForce()
-        {
-            if (_isMoveRightSide)
-            {
-                rb.AddForce(new Vector3(_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Force);
-            }
-            else
-            {
-                rb.AddForce(new Vector3(-_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Force);
-            }
-        }
-
-        public void ReturnLoopPos(bool isLeft)
-        {
-            var pos = transform.position;
-            if (isLeft)
-            {
-                
-                rb.transform.position = new Vector3(pos.x + _playerData.LoopDistance,
-                    pos.y, pos.z);
-            }
-            else
-            {
-                rb.transform.position = new Vector3(pos.x - _playerData.LoopDistance,
-                    pos.y, pos.z);
-            }
-        }
-
-        public bool GetMoveDirection()
-        {
-            return _isMoveRightSide;
         }
 
         public void StopPlayer()
@@ -103,6 +61,30 @@ namespace Controllers.Player
             if (rb.velocity.magnitude>_maxVelocityMagnitude)
             {
                 rb.velocity = Vector3.ClampMagnitude(rb.velocity, _maxVelocityMagnitude);
+            }
+        }
+
+        public void SetMoveDirection()
+        {
+            if (_isMoveRightSide)
+            {
+                _isMoveRightSide = false;
+            }
+            else
+            {
+                _isMoveRightSide = true;
+            }
+        }
+
+        private void ApplyForce()
+        { 
+            if (_isMoveRightSide)
+            {
+                rb.AddForce(new Vector3(_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Force);
+            }
+            else
+            {
+                rb.AddForce(new Vector3(-_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Force);
             }
         }
     }

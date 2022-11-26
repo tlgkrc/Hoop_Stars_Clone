@@ -1,3 +1,5 @@
+using System;
+using Enums;
 using Managers;
 using Signals;
 using UnityEngine;
@@ -18,6 +20,7 @@ namespace Controllers.Player
 
         private bool _isEnterPlayer;
         private bool _isExitPlayer;
+        private InputTypes _interactionType;
 
         #endregion
 
@@ -25,11 +28,19 @@ namespace Controllers.Player
         
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Hook") && _isEnterPlayer && _isExitPlayer)
-            {
-                ScoreSignals.Instance.onGetHookPos.Invoke(other.transform.position);
-                ScoreSignals.Instance.onUpdateScore?.Invoke();
-                _isEnterPlayer = false;
+            // if (other.CompareTag("Hook") && _isEnterPlayer && _isExitPlayer)
+            // {
+            //     ScoreSignals.Instance.onGetHookPos.Invoke(other.transform.position);
+            //     ScoreSignals.Instance.onUpdateScore?.Invoke();
+            //     _isEnterPlayer = false;
+            // }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Wall") && _interactionType ==InputTypes.OneSide)
+            { 
+                PlayerSignals.Instance.onChangeMoveDirection?.Invoke();
             }
         }
 
@@ -41,6 +52,11 @@ namespace Controllers.Player
         public void SetExitSituation(bool isInExit)
         {
             _isExitPlayer = isInExit;
+        }
+
+        public void SetInteractionType(InputTypes inputType)
+        {
+            _interactionType = inputType;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Controllers;
 using Controllers.UI;
@@ -34,7 +35,7 @@ namespace Managers
 
         private void Awake()
         {
-            _uiPanelController = new UIPanelController();
+            _uiPanelController = new UIPanelController(ref panels);
         }
 
         #region Event Subscriptions
@@ -73,14 +74,19 @@ namespace Managers
 
         #endregion
 
+        private void Start()
+        {
+            InputSignals.Instance.onActiveInputType?.Invoke(InputTypes.OneSide);
+        }
+
         private void OnOpenPanel(UIPanels panelParam)
         {
-            _uiPanelController.OpenPanel(panelParam , panels);
+            _uiPanelController.Execute(panelParam , true);
         }
 
         private void OnClosePanel(UIPanels panelParam)
         {
-            _uiPanelController.ClosePanel(panelParam , panels);
+            _uiPanelController.Execute(panelParam , false);
         }
 
         private void OnPlay()

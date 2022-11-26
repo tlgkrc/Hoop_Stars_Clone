@@ -6,14 +6,23 @@ namespace Controllers.UI
 {
     public class UIPanelController 
     {
-        public void OpenPanel(UIPanels panelParam,List<GameObject> panels)
-        {
-            panels[(int) panelParam].SetActive(true);
-        }
+        #region Self Variables
 
-        public void ClosePanel(UIPanels panelParam,List<GameObject> panels)
+        #region Private Variables
+
+        private readonly List<GameObject> _panels;
+
+        #endregion
+
+        #endregion
+        public UIPanelController(ref List<GameObject> panels)
         {
-            panels[(int) panelParam].SetActive(false);
+            _panels = panels;
+        }
+        
+        public void Execute(UIPanels panelParam,bool isOpen)
+        {
+            _panels[(int) panelParam].SetActive(isOpen);
         }
     }
 }
