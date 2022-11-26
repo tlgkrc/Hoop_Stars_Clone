@@ -1,6 +1,7 @@
 using Commands;
 using Data.UnityObject;
 using Data.ValueObject;
+using Enums;
 using Signals;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ namespace Managers
         private Vector2? _mousePosition; //ref type
         private Vector3 _moveVector; //ref type
         private QueryPointerOverUIElementCommand _queryPointerOverUIElementCommand;
+        private InputTypes _activeInputType = InputTypes.OneSide;
 
         #endregion
 
@@ -58,6 +60,7 @@ namespace Managers
         {
             InputSignals.Instance.onEnableInput += OnEnableInput;
             InputSignals.Instance.onDisableInput += OnDisableInput;
+            InputSignals.Instance.onActiveInputType += OnActiveInputType;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
         }
@@ -66,6 +69,7 @@ namespace Managers
         {
             InputSignals.Instance.onEnableInput -= OnEnableInput;
             InputSignals.Instance.onDisableInput -= OnDisableInput;
+            InputSignals.Instance.onActiveInputType -= OnActiveInputType;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
@@ -79,6 +83,7 @@ namespace Managers
 
         private void Update()
         {
+            Debug.Log(_queryPointerOverUIElementCommand.Execute());
             if (!_isReadyForTouch) return;
             
             if (Input.GetMouseButtonUp(0) && !_queryPointerOverUIElementCommand.Execute())
@@ -86,8 +91,10 @@ namespace Managers
                 MouseButtonUp();
             }
             
+           
             if (Input.GetMouseButtonDown(0) && !_queryPointerOverUIElementCommand.Execute())
             {
+                Debug.Log("tikkkkk");
                 MouseButtonDown();
             }
         }
@@ -117,8 +124,6 @@ namespace Managers
 
         #endregion
         
-        #region InputUpdateMethods
-
         private void MouseButtonUp()
         {
             InputSignals.Instance.onInputReleased?.Invoke();
@@ -135,6 +140,10 @@ namespace Managers
             _mousePosition = Input.mousePosition;
         }
 
-        #endregion
+        private void OnActiveInputType(InputTypes inputType)
+        {
+            _activeInputType = inputType;
+        }
+
     }
 }

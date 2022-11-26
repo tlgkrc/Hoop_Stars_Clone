@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using DG.Tweening;
 using Enums;
 using Signals;
@@ -11,8 +12,8 @@ namespace Managers
         #region Self Variables
 
         #region Serialized Variables
-        
-        [SerializeField] private Camera cam;
+
+        [SerializeField] private CinemachineVirtualCamera levelCam;
 
         #endregion
 
@@ -44,7 +45,7 @@ namespace Managers
 
         private void OnCameraShake()
         {
-            cam.DOShakePosition(.5f, .5f);
+            levelCam.transform.DOShakePosition(.5f, .5f);
         }
     }
 }

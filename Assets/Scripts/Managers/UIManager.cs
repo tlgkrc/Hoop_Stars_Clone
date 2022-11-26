@@ -16,12 +16,11 @@ namespace Managers
 
         #region Serialized Variables
         
-        [SerializeField] private Text scoreText;
-        [SerializeField] private TextMeshProUGUI bestScore;
-        [SerializeField] private TextMeshProUGUI increaseText;
-        [SerializeField] private TextMeshProUGUI perfectText;
         [SerializeField] private List<GameObject> panels;
-        [SerializeField] private UITimeController timeController;
+        //[SerializeField] private UITimeController timeController;
+        [SerializeField] private GameObject settingsGameObject;
+        [SerializeField] private GameObject oneSidePanel;
+        [SerializeField] private GameObject twoSidePanel;
 
         #endregion
 
@@ -86,9 +85,7 @@ namespace Managers
 
         private void OnPlay()
         {
-            perfectText.gameObject.SetActive(false);
-            increaseText.gameObject.SetActive(false);
-            timeController.ResetTime();
+           // timeController.ResetTime();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.StartPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.LevelPanel);
         }
@@ -106,35 +103,20 @@ namespace Managers
 
         private void OnSetScoreText(ushort score,ushort increaseFactor,bool isPerfect)
         {
-            timeController.ResetTime();
-            scoreText.transform.DOScale(Vector3.one * 1.3f, .3f).SetEase(Ease.InOutElastic).OnComplete(
-                () => scoreText.transform.DOScale(Vector3.one, .3f));
-            scoreText.text = score.ToString();
-            increaseText.gameObject.SetActive(true);
-            increaseText.text = "+" + (increaseFactor+1).ToString();
-            increaseText.transform.DOLocalMoveY(increaseText.transform.localPosition.y+140f, 1f).
-                OnComplete(ResetIncreaseText);
-
-            if (isPerfect )
-            {
-                perfectText.gameObject.SetActive(true);
-                perfectText.text = "Perfect x" + increaseFactor.ToString();
-            }
-            else
-            {
-                perfectText.gameObject.SetActive(false);
-            }
+            //timeController.ResetTime();
+            // scoreText.transform.DOScale(Vector3.one * 1.3f, .3f).SetEase(Ease.InOutElastic).OnComplete(
+            //     () => scoreText.transform.DOScale(Vector3.one, .3f));
+            // scoreText.text = score.ToString();
         }
 
         private void ResetIncreaseText()
         {
-            increaseText.gameObject.SetActive(false);
-            increaseText.transform.DOLocalMoveY(increaseText.transform.localPosition.y - 140f, .3f);
+            
         }
 
         private void OnSetBestScore(ushort best)
         {
-            bestScore.text = "BEST " + best.ToString();
+            //bestScore.text = "BEST " + best.ToString();
         }
 
         private void OnReset()
@@ -147,6 +129,26 @@ namespace Managers
         {
             CoreGameSignals.Instance.onReset?.Invoke();
         }
-        
+
+        public void Settings()
+        {
+            settingsGameObject.gameObject.SetActive(!settingsGameObject.activeSelf);
+        }
+
+        public void ActivateOneSideInput()
+        {
+            oneSidePanel.SetActive(true);
+            twoSidePanel.SetActive(false);
+            InputSignals.Instance.onActiveInputType?.Invoke(InputTypes.OneSide);
+        }
+
+        public void ActivateTwoSideInput()
+        {
+            oneSidePanel.SetActive(false);
+            twoSidePanel.SetActive(true);
+            InputSignals.Instance.onActiveInputType?.Invoke(InputTypes.TwoSide);
+        }
+
+
     }
 }

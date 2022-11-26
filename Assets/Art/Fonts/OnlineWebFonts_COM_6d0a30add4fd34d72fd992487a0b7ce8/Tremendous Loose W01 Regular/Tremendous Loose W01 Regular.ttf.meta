@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 3bdce8a7cfde0094a9b9a546a884efa0
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - TremendousLooseW01-Regular
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 16ad433997d0a4443a2c6e3eb6d8e89d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
