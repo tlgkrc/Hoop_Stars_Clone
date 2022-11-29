@@ -7,6 +7,6 @@ namespace Data.ValueObject
     public class PlayerData
     {
         public Vector2 AppliedForce;
-        public float LoopDistance;
+        public float MaxVelocity;
     }
 }

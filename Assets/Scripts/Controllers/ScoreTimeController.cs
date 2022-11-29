@@ -1,4 +1,6 @@
-﻿using Signals;
+﻿using Data.UnityObject;
+using Data.ValueObject;
+using Signals;
 using TMPro;
 using UnityEngine;
 
@@ -17,7 +19,7 @@ namespace Controllers
         #region Private Variables
         
         private float _currentTime;
-        private const float _timeBorder = 60;
+        private TimeData _data;
 
         #endregion
         
@@ -25,13 +27,16 @@ namespace Controllers
 
         private void Awake()
         {
-            _currentTime = _timeBorder;
+            _data = GetTimeData();
+            _currentTime = _data.TimeBorder;
         }
         
         private void Update()
         {
             SetTimer();
         }
+        
+        private TimeData GetTimeData() => Resources.Load<CD_Time>("Data/CD_Time").TimeData;
         
         private void SetTimer()
         {
@@ -49,14 +54,14 @@ namespace Controllers
 
         private void DisplayTimer(float remainingTime)
         {
-            float minutes = Mathf.FloorToInt(remainingTime / 60);//const  
+            float minutes = Mathf.FloorToInt(remainingTime / 60);
             float seconds = Mathf.FloorToInt(remainingTime % 60); 
             timeText.text = $"{minutes:00}:{seconds:00}";
         }
 
         private void ResetTime()
         {
-            _currentTime = _timeBorder;
+            _currentTime = _data.TimeBorder;
         }
     }
 }

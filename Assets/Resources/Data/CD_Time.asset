@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a33113358ceae8f4685ad0ff9fa037f7, type: 3}
-  m_Name: CD_Pool
+  m_Script: {fileID: 11500000, guid: 5e4d7b84637748dcb804ef4a97ace7a4, type: 3}
+  m_Name: CD_Time
   m_EditorClassIdentifier: 
-  PoolTypeDatas:
-    m_Keys: 00000000
-    m_Values:
-    - ObjectLimit: 0
-      PooledGameObject: {fileID: 0}
+  TimeData:
+    TimeBorder: 45

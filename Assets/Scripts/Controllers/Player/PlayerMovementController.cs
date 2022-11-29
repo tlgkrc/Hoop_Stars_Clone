@@ -19,7 +19,6 @@ namespace Controllers.Player
 
         private bool _isMoveRightSide;
         private bool _isSuitableForNewForce;
-        private const float _maxVelocityMagnitude = 30f;
         private PlayerData _playerData;
         
         #endregion
@@ -58,9 +57,9 @@ namespace Controllers.Player
 
         private void ClampVelocity()
         {
-            if (rb.velocity.magnitude>_maxVelocityMagnitude)
+            if (rb.velocity.magnitude>_playerData.MaxVelocity)
             {
-                rb.velocity = Vector3.ClampMagnitude(rb.velocity, _maxVelocityMagnitude);
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, _playerData.MaxVelocity);
             }
         }
 
