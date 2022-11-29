@@ -30,7 +30,7 @@ namespace Controllers.Rival
                 manager.ChangeMoveDirection();
             }
             
-            if (other.CompareTag("Target") && (_isEnterRival || _isExitRival))
+            if (other.CompareTag("Target") && (_isEnterRival || !_isExitRival))
             {
                 ScoreSignals.Instance.onUpdatePlayerScore?.Invoke();
             }

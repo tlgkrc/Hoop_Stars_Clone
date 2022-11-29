@@ -71,12 +71,14 @@ namespace Managers
         private void OnUpdatePlayerScore()
         {
             _playerScore += 1;
+            SetPlayerScoreText();
             CheckWinner();
         }
 
         private void OnUpdateRivalScore()
         {
             _rivalScore += 1;
+            SetRivalScoreText();
             CheckWinner();
         }
 
@@ -96,6 +98,16 @@ namespace Managers
         {
            
         }
-        
+
+        private void SetPlayerScoreText()
+        {
+            playerScoreText.text = _playerScore.ToString();
+        }
+
+        private void SetRivalScoreText()
+        {
+            rivalScoreText.text = _rivalScore.ToString();
+        }
+
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Controllers;
+﻿using System.Collections;
 using Controllers.Rival;
 using Data.UnityObject;
 using Data.ValueObject;
@@ -17,6 +15,7 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private RivalMovementController movementController;
+        [SerializeField] private RivalPhysicController physicController;
 
         #endregion
 
@@ -48,7 +47,6 @@ namespace Managers
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay -= OnPlay;
-
         }
 
         private void OnDisable()
@@ -81,7 +79,7 @@ namespace Managers
             StartCoroutine(Press());
         }
 
-        IEnumerator Press()
+        private IEnumerator Press()
         {
             float waiting = Random.Range(.5f, 2f);
             yield return new WaitForSeconds(waiting);
@@ -91,12 +89,12 @@ namespace Managers
 
         public void EntryInteractionWithTarget(bool isInside)
         {
-            
+            physicController.SetEntrySituation(isInside);
         }
 
         public void ExitInteractionWithTarget(bool isInside)
         {
-            
+            physicController.SetExitSituation(isInside);
         }
     }
 }

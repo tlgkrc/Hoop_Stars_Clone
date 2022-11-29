@@ -9,7 +9,7 @@ namespace Controllers.Rival
 
         #region Serialized Variables
 
-        [SerializeField] private new Rigidbody rb;
+        [SerializeField] private Rigidbody rb;
 
         #endregion
 
@@ -21,9 +21,9 @@ namespace Controllers.Rival
         private PlayerData _data;
 
         #endregion
+        
         #endregion
 
-        
         private void FixedUpdate()
         {
             ClampVelocity();
@@ -39,11 +39,11 @@ namespace Controllers.Rival
         { 
             if (_isMoveRightSide)
             {
-                rb.AddForce(new Vector3(_data.AppliedForce.x,_data.AppliedForce.y,0),ForceMode.Force);
+                rb.AddForce(new Vector3(_data.AppliedForce.x,_data.AppliedForce.y,0),ForceMode.Impulse);
             }
             else
             {
-                rb.AddForce(new Vector3(-_data.AppliedForce.x,_data.AppliedForce.y,0),ForceMode.Force);
+                rb.AddForce(new Vector3(-_data.AppliedForce.x,_data.AppliedForce.y,0),ForceMode.Impulse);
             }
         }
 

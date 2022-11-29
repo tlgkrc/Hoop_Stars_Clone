@@ -22,7 +22,6 @@ namespace Managers
         [SerializeField] private PlayerMeshController meshController;
         [SerializeField] private PlayerPhysicsController physicsController;
         [SerializeField] private PlayerMovementController movementController;
-        [SerializeField] private PlayerParticleController particleController;
 
         #endregion
 
@@ -55,7 +54,6 @@ namespace Managers
             InputSignals.Instance.onActiveInputType += OnActivateMovementType;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
-            ScoreSignals.Instance.onGetPecfectCount += OnGetPerfectCount;
             PlayerSignals.Instance.onChangeMoveDirection += OnChangeMoveDirection;
         }
 
@@ -66,7 +64,6 @@ namespace Managers
             InputSignals.Instance.onActiveInputType -= OnActivateMovementType;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
-            ScoreSignals.Instance.onGetPecfectCount -= OnGetPerfectCount;
             PlayerSignals.Instance.onChangeMoveDirection -= OnChangeMoveDirection;
         }
 
@@ -116,11 +113,6 @@ namespace Managers
         private void OnChangeMoveDirection()
         {
             movementController.SetMoveDirection();
-        }
-
-        private void OnGetPerfectCount(ushort count)
-        {
-            particleController.SetPerfectCount(count);
         }
 
         private void OnActivateMovementType(InputTypes inputType)

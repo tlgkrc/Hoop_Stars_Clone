@@ -49,7 +49,7 @@ namespace Controllers
 
         private void DisplayTimer(float remainingTime)
         {
-            float minutes = Mathf.FloorToInt(remainingTime / 60);  
+            float minutes = Mathf.FloorToInt(remainingTime / 60);//const  
             float seconds = Mathf.FloorToInt(remainingTime % 60); 
             timeText.text = $"{minutes:00}:{seconds:00}";
         }
@@ -57,7 +57,6 @@ namespace Controllers
         private void ResetTime()
         {
             _currentTime = _timeBorder;
-            StopAllCoroutines();
         }
     }
 }

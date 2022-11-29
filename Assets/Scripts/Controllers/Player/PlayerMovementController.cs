@@ -19,7 +19,7 @@ namespace Controllers.Player
 
         private bool _isMoveRightSide;
         private bool _isSuitableForNewForce;
-        private const float _maxVelocityMagnitude = 36f;
+        private const float _maxVelocityMagnitude = 30f;
         private PlayerData _playerData;
         
         #endregion
@@ -80,11 +80,11 @@ namespace Controllers.Player
         { 
             if (_isMoveRightSide)
             {
-                rb.AddForce(new Vector3(_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Force);
+                rb.AddForce(new Vector3(_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Impulse);
             }
             else
             {
-                rb.AddForce(new Vector3(-_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Force);
+                rb.AddForce(new Vector3(-_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Impulse);
             }
         }
     }
