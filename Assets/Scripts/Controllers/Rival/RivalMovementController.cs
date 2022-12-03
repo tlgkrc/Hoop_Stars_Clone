@@ -17,7 +17,7 @@ namespace Controllers.Rival
 
         private bool _isMoveRightSide;
         private bool _isPressed;
-        private const float _maxVelocityMagnitude = 16f;
+        private bool _isPassedBall;
         private PlayerData _data;
 
         #endregion
@@ -27,7 +27,7 @@ namespace Controllers.Rival
         private void FixedUpdate()
         {
             ClampVelocity();
-            if (!_isPressed)
+            if (!_isPressed || _isPassedBall ) 
             {
                 return;
             }
@@ -39,11 +39,11 @@ namespace Controllers.Rival
         { 
             if (_isMoveRightSide)
             {
-                rb.AddForce(new Vector3(_data.AppliedForce.x,_data.AppliedForce.y,0),ForceMode.Impulse);
+                rb.AddForce(new Vector3(_data.AppliedForce.x,_data.AppliedForce.y,0),ForceMode.Force);
             }
             else
             {
-                rb.AddForce(new Vector3(-_data.AppliedForce.x,_data.AppliedForce.y,0),ForceMode.Impulse);
+                rb.AddForce(new Vector3(-_data.AppliedForce.x,_data.AppliedForce.y,0),ForceMode.Force);
             }
         }
 
@@ -67,13 +67,26 @@ namespace Controllers.Rival
         public void SetSuitableSituation()
         {
             _isPressed = true;
+            SetTapTime();
         }
         
         private void ClampVelocity()
         {
-            if (rb.velocity.magnitude>_maxVelocityMagnitude)
+            if (rb.velocity.magnitude>_data.MaxVelocity)
             {
-                rb.velocity = Vector3.ClampMagnitude(rb.velocity, _maxVelocityMagnitude);
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, _data.MaxVelocity);
+            }
+        }
+
+        private void SetTapTime()
+        {
+            if (transform.position.y >= 55f)
+            {
+                _isPassedBall = true;
+            }
+            else
+            {
+                _isPassedBall = false;
             }
         }
     }

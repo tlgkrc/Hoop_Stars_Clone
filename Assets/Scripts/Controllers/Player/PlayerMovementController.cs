@@ -18,7 +18,7 @@ namespace Controllers.Player
         #region Private Variables
 
         private bool _isMoveRightSide;
-        private bool _isSuitableForNewForce;
+        private bool _isSuitableForNewForce; 
         private PlayerData _playerData;
         
         #endregion
@@ -79,11 +79,11 @@ namespace Controllers.Player
         { 
             if (_isMoveRightSide)
             {
-                rb.AddForce(new Vector3(_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Impulse);
+                rb.AddForce(new Vector3(_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Force);
             }
             else
             {
-                rb.AddForce(new Vector3(-_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Impulse);
+                rb.AddForce(new Vector3(-_playerData.AppliedForce.x,_playerData.AppliedForce.y,0),ForceMode.Force);
             }
         }
     }

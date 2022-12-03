@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CD_PlayerData
   m_EditorClassIdentifier: 
   Data:
-    AppliedForce: {x: 10, y: 40}
-    MaxVelocity: 30
+    AppliedForce: {x: 80, y: 300}
+    MaxVelocity: 20
